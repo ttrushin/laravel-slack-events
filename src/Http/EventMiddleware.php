@@ -4,6 +4,7 @@ namespace Lisennk\LaravelSlackEvents\Http;
 
 use Closure;
 use Illuminate\Http\Request;
+use Lisennk\LaravelSlackEvents\RequestSignature;
 
 /**
  * Event validation
@@ -21,9 +22,12 @@ class EventMiddleware
      */
     public function handle(Request $request, Closure $next)
     {
-        if ($request->input('token') !== config('slackEvents.token')) {
-            return response('Wrong token', 200);
+        $signature = app(RequestSignature::class)->create($request);
+
+        if ($request->header('X-Slack-Signature') !== $signature) {
+            return response('Wrong signature', 200);
         }
+
         if ($request->input('type') === 'url_verification') {
             return response($request->input('challenge'), 200);
         }

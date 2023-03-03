@@ -20,14 +20,14 @@ class SlackEventsServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        $source = dirname(__DIR__).'/config/slackEvents.php';
+        $source = dirname(__DIR__).'/config/slack-events.php';
 
         if ($this->app instanceof LaravelApplication && $this->app->runningInConsole()) {
-            $this->publishes([$source => config_path('slackEvents.php')], 'slack-events');
+            $this->publishes([$source => config_path('slack-events.php')], 'slack-events');
         } elseif ($this->app instanceof LumenApplication) {
-            $this->app->configure('slackEvents');
+            $this->app->configure('slack-events');
         }
-        $this->mergeConfigFrom($source, 'slackEvents');
+        $this->mergeConfigFrom($source, 'slack-events');
 
         require __DIR__.'/Http/routes.php';
     }

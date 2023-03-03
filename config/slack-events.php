@@ -6,13 +6,13 @@ return [
     | Your validation token from "App Credentials"
     |-------------------------------------------------------------
     */
-    'token' => env('SLACK_EVENT_TOKEN', 'your-validation-token-here'),
+    'signing_secret' => env('SLACK_SIGNING_SECRET', 'your-signing-secret'),
 
     /*
     |-------------------------------------------------------------
     | Events Request URL — path, where events will be served
     |-------------------------------------------------------------
     */
-    'route' => '/api/slack/event/fire',
+    'route' => '_slack-events',
 
 ];

@@ -90,6 +90,6 @@ class MiddlewareTest extends TestCase
      */
     protected function getEnvironmentSetUp($app)
     {
-        $app['config']->set('slackEvents.token', $this->eventRequestData['token']);
+        $app['config']->set('slack-events.token', $this->eventRequestData['token']);
     }
 }

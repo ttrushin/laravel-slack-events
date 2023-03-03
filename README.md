@@ -66,7 +66,7 @@ Open `.env` and paste your Verification Token under the `'SLACK_EVENT_TOKEN'` ke
 SLACK_EVENT_TOKEN=your-token
 ```
 
-**7)** Now open the "Event Subscriptions" page. Here you must enable events, add events you wish to listen for and set **Request URL**. Request URL is the `'route'` key in your `config/slackEvents.php` file:
+**7)** Now open the "Event Subscriptions" page. Here you must enable events, add events you wish to listen for and set **Request URL**. Request URL is the `'route'` key in your `config/slack-events.php` file:
 ```php
 return [
     /*
@@ -166,18 +166,18 @@ As you can see, it's a normal event listener. You might notice that the listener
 // ...
 
 protected $listen = [
-        
+
         // ...
 
         \Lisennk\LaravelSlackEvents\Events\ReactionAdded::class => [
             \App\Listeners\ReactionAddedListener::class
         ]
     ];
-    
+
 // ...
 ```
 
-**3)** Profit! You are ready to go. 
+**3)** Profit! You are ready to go.
 
 ## :cherries: Full list of supported events and their classes
 
@@ -239,7 +239,7 @@ protected $listen = [
 
 Feel free to star this repository, create pull requests or issues, and report typos.
 
-## :books: Reference 
+## :books: Reference
 * Read the [Slack Events API official documentation](https://api.slack.com/events-api)
 * Read the [Laravel Events documentation](https://laravel.com/docs/master/events)
 * To make Slack Web API calls we recommend the [Laravel Slack API package](https://github.com/Lisennk/Laravel-Slack-Web-API)
