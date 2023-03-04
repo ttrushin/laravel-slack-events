@@ -22,10 +22,17 @@ class EventMiddleware
      */
     public function handle(Request $request, Closure $next)
     {
-        $signature = app(RequestSignature::class)->create($request);
+        // Validate the request
+        if ($token = config("slack-events.token", null)) {
+            if ($request->input('token') !== $token) {
+                return response('Wrong token', 200);
+            }
+        } else {
+            $signature = app(RequestSignature::class)->create($request);
 
-        if ($request->header('X-Slack-Signature') !== $signature) {
-            return response('Wrong signature', 200);
+            if ($request->header('X-Slack-Signature') !== $signature) {
+                return response('Wrong signature', 200);
+            }
         }
 
         if ($request->input('type') === 'url_verification') {
