@@ -5,6 +5,7 @@ namespace Lisennk\LaravelSlackEvents\Http;
 use Closure;
 use Illuminate\Http\Request;
 use Lisennk\LaravelSlackEvents\RequestSignature;
+use Illuminate\Support\Facades\Log;
 
 /**
  * Event validation
@@ -23,7 +24,10 @@ class EventMiddleware
     public function handle(Request $request, Closure $next)
     {
         // Validate the request
-        if ($token = config("slack-events.token", null)) {
+        if (config("slack-events.bypass_validation", false) === true) {
+            Log::Info("Bypassing validation for Slack event");
+        }
+        else if ($token = config("slack-events.token", null)) {
             if ($request->input('token') !== $token) {
                 return response('Wrong token', 200);
             }
