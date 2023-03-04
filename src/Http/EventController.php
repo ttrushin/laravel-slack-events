@@ -32,10 +32,16 @@ class EventController extends Controller
      */
     public function fire(Request $request, EventCreator $events)
     {
-        $event = $events->make($request->input('event.type'));
-        $event->setFromRequest($request);
+        try {
+            $event = $events->make($request->input('event.type'), $request->input('event.channel_type', ''));
+            $event->setFromRequest($request);
 
-        event($event);
+            event($event);
+        } catch (\Exception $e) {
+            report($e);
+
+            return response('Unknown event', 200);
+        }
 
         return response('Event received', 200);
     }

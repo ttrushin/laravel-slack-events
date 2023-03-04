@@ -123,10 +123,15 @@ class EventCreator
      * Returns new event instance
      *
      * @param $eventType
+     * @param $channelType
      * @return SlackEvent
      */
-    public function make($eventType)
+    public function make($eventType, $channelType)
     {
+        if ($channelType) {
+            $eventType = $eventType . '.' . $channelType;
+        }
+
         return new $this->map[$eventType];
     }
 }
