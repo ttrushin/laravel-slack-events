@@ -27,6 +27,8 @@ matrix:
       env: LARAVEL_VERSION=9.*
     - php: 8.2
       env: LARAVEL_VERSION=10.*
+    - php: 8.3
+      env: LARAVEL_VERSION=11.*
 
 before_install:
   - composer self-update --stable -n
